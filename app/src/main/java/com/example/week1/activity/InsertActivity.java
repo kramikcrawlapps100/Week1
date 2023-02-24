@@ -14,6 +14,8 @@ import com.example.week1.R;
 import com.example.week1.model.Employee;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+
 public class InsertActivity extends AppCompatActivity {
 
     EditText etName,etMobileNumber,etEmail,etAddress;
@@ -21,6 +23,7 @@ public class InsertActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
 
     String name,mobileNumber,email,address;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +38,7 @@ public class InsertActivity extends AppCompatActivity {
             email = etEmail.getText().toString();
             address = etAddress.getText().toString();
 
-            validation();
+            //validation();
 
             insertEmployee(name, mobileNumber, email, address);
 
@@ -47,14 +50,20 @@ public class InsertActivity extends AppCompatActivity {
         Employee employee = new Employee(name, mobileNumber, email, address);
 
         Gson gson = new Gson();
-        String json = gson.toJson(employee);
+        if(sharedPreferences.getString("employeeList", "").equals("")){
+            ArrayList<Employee> employeeList = new ArrayList<Employee>();
+            employeeList.add(employee);
+            String employeeListString = gson.toJson(employeeList);
+            sharedPreferences.edit().putString("employeeList", employeeListString).apply();
+        }
+        else{
+            String employeeListString2 = sharedPreferences.getString("employeeList", "");
+            ArrayList<Employee> employeeList2;
+            employeeList2 = gson.fromJson(employeeListString2, ArrayList.class);
+            employeeList2.add(employee);
+            sharedPreferences.edit().putString("employeeList", gson.toJson(employeeList2)).apply();
+        }
 
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        int id = sharedPreferences.getInt("id",0);
-        id++;
-        editor.putInt("id", id);
-        editor.putString("employee_"+id, json);
-        editor.apply();
     }
 
     private void validation() {

@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.week1.activity.InsertActivity;
 import com.example.week1.model.Employee;
@@ -22,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     Button btnAddEmployee;
     SharedPreferences sharedPreferences;
-    int id =0;
 
     ArrayList<Employee> employeeArrayList= new ArrayList<Employee>();
 
@@ -33,17 +33,17 @@ public class MainActivity extends AppCompatActivity {
 
         init();
 
-        int lastIndex = sharedPreferences.getInt("id",0);
+        Gson gson = new Gson();
+        String employeeListString = sharedPreferences.getString("employeeList", "");
+        ArrayList<Employee> employeeList;
+        employeeList = gson.fromJson(employeeListString, ArrayList.class);
 
-        for(int i = 1;i <= lastIndex; i++) {
-            String dataString = sharedPreferences.getString("employee_"+i,"");
-            Log.d("kramik", "dataString:- "+dataString);
-            Gson gson = new Gson();
-            Employee employee = gson.fromJson(dataString, Employee.class);
-            employeeArrayList.add(employee);
+        Toast.makeText(this, employeeListString, Toast.LENGTH_SHORT).show();
+
+        //Toast.makeText(this, "size:- "+String.valueOf(employeeArrayList.size()), Toast.LENGTH_SHORT).show();
+        for(Employee employee : employeeArrayList){
+            Log.d("kramik", "name:- " + employee.getName());
         }
-
-        Log.d("kramik", "getList:- "+ employeeArrayList.toString());
 
 
         btnAddEmployee.setOnClickListener(v -> {
