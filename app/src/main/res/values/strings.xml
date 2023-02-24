@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Week1</string>
+    <string name="login">Login</string>
+    <string name="sign_in">Sign in</string>
+    <string name="add_employee">Add Employee</string>
+    <string name="enter_name">enter name</string>
+    <string name="enter_mobile_number">enter mobile number</string>
+    <string name="enter_email_address">enter email address</string>
+    <string name="enter_address">enter address</string>
+    <string name="submit">Submit</string>
+    <string name="enter_email">enter email</string>
+    <string name="enter_password">enter password</string>
+</resources>
