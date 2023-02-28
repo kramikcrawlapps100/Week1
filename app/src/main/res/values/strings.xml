@@ -10,4 +10,8 @@
     <string name="submit">Submit</string>
     <string name="enter_email">enter email</string>
     <string name="enter_password">enter password</string>
+    <string name="name">name</string>
+    <string name="mobile_number">mobile number</string>
+    <string name="email">email</string>
+    <string name="address">address</string>
 </resources>
